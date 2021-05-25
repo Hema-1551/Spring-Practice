@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Define your beans here -->
+
+
+<!-- Loading the file into config file -->
+<context:property-placeholder location="classpath:sport.properties"/>
+
+
+	<!-- Define your dependency here -->
+	<bean id="myFortune"
+		class="com.luv2code.springdemo.HappyFortuneService"></bean>
+
+
+	<bean id="myCoach" class="com.luv2code.springdemo.CricketCoach">
+
+		<!-- Setup the construcor injtion -->
+
+		<constructor-arg ref="myFortune" />
+	</bean>
+	<bean id="myChessCoach" class="com.luv2code.springdemo.ChessCoach">
+		<!-- Setup our setup injection -->
+		<property name="fortuneService" ref="randomFortune" />
+		
+		<!-- Inject  litrals -->
+		<property name="emailAddress" value="${file.email}"/>
+		<property name="team" value="${file.team}"/>
+	</bean>
+
+
+
+<!--injecting  New dependency -->
+<bean id="randomFortune" 
+class="com.luv2code.springdemo.ArrayOfFortunes"
+></bean>
+</beans>
+   
